@@ -5,9 +5,9 @@ function euler = q2euler(q)
 
   xzpwy = q(2, :).*q(4, :) + q(1, :).*q(3, :);
 
-	IN = xzpwy+sqrt(eps)>0.5;  % Handle the north pole
+  IN = xzpwy+sqrt(eps)> 0.5;  % Handle the north pole
   euler(1, IN) = 2*atan2(q(2, IN), q(1, IN));
-  IS = xzpwy-sqrt(eps)<-0.5;  % Handle the south pole
+  IS = xzpwy-sqrt(eps)< -0.5;  % Handle the south pole
   euler(1, IS) = -2*atan2(q(2, IS), q(1, IS));
 
   I = ~(IN | IS);  % Handle the default case
@@ -16,7 +16,7 @@ function euler = q2euler(q)
   euler(3, I) = atan2(2*(q(3, I).*q(4, I) - q(1, I).*q(2, I)),...
                       1-2*(q(2, I).^2 + q(3, I).^2));
 
-  euler(2, :) = asin(2*xzpwy);
+	euler(2, :) = asin(2*xzpwy);
 
   euler(1, :) = rem(euler(1, :), 2*pi);
 end
